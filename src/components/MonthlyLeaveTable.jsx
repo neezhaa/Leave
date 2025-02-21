@@ -17,52 +17,64 @@ const MonthlyLeaveTable = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const currentYear = new Date().getFullYear();
 
-  // Filtrer les employés gérés par le manager connecté.
-  const managedEmployees = employees.filter((emp) =>
-    user.managedEmployees?.includes(emp.id) || (user.role === "manager" && emp.role === "employee")
-  );
+  // Si l'utilisateur est manager, on récupère ses employés gérés
+  // Sinon, on prend uniquement l'utilisateur connecté
+  const filteredEmployees =
+    user.role === "manager"
+      ? employees.filter((emp) =>
+          user.managedEmployees?.includes(emp.id)
+        )
+      : employees.filter((emp) => emp.id === user.id);
 
-  // Filtrer les demandes en fonction du mois sélectionné
+  // Filtrer les congés du mois sélectionné
   const filteredLeaves = leaves.filter((leave) => {
     const start = new Date(leave.startDate);
-    return (start.getMonth() + 1) === Number(selectedMonth) && start.getFullYear() === currentYear;
+    return (
+      start.getMonth() + 1 === Number(selectedMonth) &&
+      start.getFullYear() === currentYear
+    );
   });
 
-  // Gérer le changement de mois via un select
   const handleMonthChange = (e) => {
     setSelectedMonth(e.target.value);
   };
 
   return (
-    <div>
+    <div className="p-6 bg-white rounded shadow-md">
       <div className="mb-4">
-        <label htmlFor="month" className="mr-2 font-medium">Sélectionner le mois :</label>
-        <select 
-          id="month" 
-          value={selectedMonth} 
-          onChange={handleMonthChange} 
+        <label htmlFor="month" className="mr-2 font-medium">
+          Sélectionner le mois :
+        </label>
+        <select
+          id="month"
+          value={selectedMonth}
+          onChange={handleMonthChange}
           className="border p-1 rounded"
         >
           {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
             <option key={month} value={month}>
-              {new Date(currentYear, month - 1).toLocaleString("default", { month: "long" })}
+              {new Date(currentYear, month - 1).toLocaleString("default", {
+                month: "long",
+              })}
             </option>
           ))}
         </select>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-200">
               <th className="border p-2">Employé</th>
               {[1, 2, 3, 4, 5].map((week) => (
-                <th key={week} className="border p-2">Semaine {week}</th>
+                <th key={week} className="border p-2">
+                  Semaine {week}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {managedEmployees.map((employee) => {
+            {filteredEmployees.map((employee) => {
               // Pour chaque employé, filtrer ses demandes pour le mois sélectionné
               const employeeLeaves = filteredLeaves.filter(
                 (leave) => leave.employeeId === employee.id
@@ -94,7 +106,8 @@ const MonthlyLeaveTable = () => {
                                 : "bg-yellow-200"
                             }`}
                           >
-                            {leave.startDate} - {leave.endDate} ({leave.status})
+                            {leave.startDate} - {leave.endDate} (
+                            {leave.status})
                           </div>
                         ))
                       ) : (

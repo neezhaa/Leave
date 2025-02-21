@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LeaveRequests from "../components/LeaveRequests";
-import MonthlyLeaveTable from "../components/MonthlyLeaveTable";
+// import MonthlyLeaveTable from "../components/MonthlyLeaveTable";
 import RequestLeave from "../components/RequestLeave";
+import Sidebar from "../components/sidebar";
 
 const DashboardPage = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [showRequestModal, setShowRequestModal] = useState(false);
 
@@ -16,20 +17,17 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="p-6">
+    <div>
+      <Sidebar/>
+    <div className="bg-[#f0f5f9] h-screen pl-20 p-6">
       <h1 className="text-xl font-bold">Bienvenue, {user.name}</h1>
-      <button
-        onClick={logout}
-        className="mt-4 bg-red-500 text-white p-2 rounded"
-      >
-        Déconnexion
-      </button>
+      
 
       <div className="mt-6">
         {user.role === "manager" ? (
           <>
             <LeaveRequests />
-            <MonthlyLeaveTable />
+            {/* <MonthlyLeaveTable /> */}
           </>
         ) : (
           <>
@@ -45,7 +43,6 @@ const DashboardPage = () => {
         )}
       </div>
 
-      {/* Fenêtre pop-up pour le formulaire de demande de congé */}
       {showRequestModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg relative">
@@ -59,6 +56,7 @@ const DashboardPage = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
