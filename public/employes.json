@@ -1,0 +1,24 @@
+{
+  "employes": [
+    
+    {
+      "id": 1,
+      "name": "Ahmed Benali",
+      "role": "Développeur",
+      "managerId": 101
+    },
+    {
+      "id": 2,
+      "name": "Fatima El Arabi",
+      "role": "Designer",
+      "managerId": 102
+    },
+    {
+      "id": 3,
+      "name": "Yassine Mourad",
+      "role": "Chef de projet",
+      "managerId": 101
+    }
+
+  ]
+}
