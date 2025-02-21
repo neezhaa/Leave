@@ -1,0 +1,5 @@
+[
+    { "id": 1, "employeeId": 2, "startDate": "2024-03-01", "endDate": "2024-03-05", "status": "En attente" },
+    { "id": 2, "employeeId": 3, "startDate": "2024-03-10", "endDate": "2024-03-12", "status": "Approuvé" }
+  ]
+  

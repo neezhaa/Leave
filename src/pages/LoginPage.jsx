@@ -1,64 +1,20 @@
 import { useState } from "react";
-import managers from '../managers.json';
-// import employes from '../../public/employes.json';
-import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("admin1@gmail.com");
-  const [password, setPassword] = useState("123456");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const LoginPage = () => {
+  const [email, setEmail] = useState("ahmed@example.com");
+  const [password, setPassword] = useState("password123");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault()
-    setLoading(true)
-    const responsable = managers.managers.find(
-      (responsable) =>
-        responsable.email === email &&
-        responsable.password === password
-    );
-
-    if (responsable) {
-      setLoading(false)
-      localStorage.setItem("loggedIn", responsable.id);
-      window.location.href = "/";
-    } else {
-      setError("Identifiants incorrects");
-      setLoading(false)
-    }
+    e.preventDefault();
+    login(email, password);
+    navigate("/dashboard");
   };
 
   return (
-    // <div className="flex justify-center items-center min-h-screen bg-gray-100">
-    //   <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
-    //     <h2 className="text-2xl font-bold mb-4 text-center">Connexion</h2>
-    //     <div className="mb-4">
-    //       <input
-    //         type="text"
-    //         placeholder="Email ou Nom d'utilisateur"
-    //         value={emailOrUsername}
-    //         onChange={(e) => setEmailOrUsername(e.target.value)}
-    //         className="form-input w-full p-2 border rounded"
-    //       />
-    //     </div>
-    //     <div className="mb-4">
-    //       <input
-    //         type="password"
-    //         placeholder="Mot de passe"
-    //         value={password}
-    //         onChange={(e) => setPassword(e.target.value)}
-    //         className="form-input w-full p-2 border rounded"
-    //       />
-    //     </div>
-    //     {error && <p className="text-red-500 mb-4">{error}</p>}
-    //     <button
-    //       onClick={handleLogin}
-    //       className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
-    //     >
-    //       Se connecter
-    //     </button>
-    //   </div>
-    // </div>
     <div className='flex items-center justify-center w-screen h-screen bg-[#f0f5f9]'>
     <div className="bg-white flex flex-col items-center justify-center max-w-[600px] rounded-[10px] w-full pt-[47px] pb-[20px]  h-auto mt-[45px] mb-[20px]">
             <h1 className='text-[32px] font-semibold tracking-[1px] leading-[1.1] m-0'>Sign In</h1>
@@ -105,18 +61,18 @@ const Login = () => {
                         
                         Sign In
 
-                        {loading && (
+                        {/* {loading && (
                             <div className="flex items-center ml-2">
                             <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
                             <span className="w-2 h-2 bg-white rounded-full animate-pulse mx-1" style={{ animationDelay: "0.2s" }}></span>
                             <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></span>
                             </div>
-                        )}
+                        )} */}
 
                         </button>
 
                     </div>
-                    {error && <p className="text-red-500 mb-4">{error}</p>}
+                    {/* {error && <p className="text-red-500 mb-4">{error}</p>} */}
 
                 </form>
             </div>
@@ -125,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

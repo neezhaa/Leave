@@ -1,0 +1,45 @@
+[
+    { 
+      "id": 1, 
+      "name": "Ahmed Karimi", 
+      "email": "ahmed@example.com", 
+      "password": "password123", 
+      "role": "manager",
+      "managedEmployees": [2, 3]
+    },
+    { 
+        "id": 2,
+        "name": "Layla Youssefi", 
+        "email": "layla@example.com", 
+        "password": "password123", 
+        "role": "employee" },
+    { 
+        "id": 3, 
+        "name": "Nasser Ahmadi", 
+        "email": "nasser@example.com", 
+        "password": "password123", 
+        "role": "employee" 
+    },
+    { 
+      "id": 4, 
+      "name": "Hassan Karim", 
+      "email": "hassan@example.com", 
+      "password": "password123", 
+      "role": "manager",
+      "managedEmployees": [5, 6]
+    },
+    { 
+        "id": 5,
+        "name": "Amina Sadiq", 
+        "email": "amina@example.com", 
+        "password": "password123", 
+        "role": "employee" },
+    { 
+        "id": 6, 
+        "name": "Ali omari", 
+        "email": "ali@example.com", 
+        "password": "password123", 
+        "role": "employee" 
+    }
+  ]
+  
