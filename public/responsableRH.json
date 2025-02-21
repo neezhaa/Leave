@@ -1,0 +1,22 @@
+{
+    "responsableRH": [
+      [
+        {
+          "id": 101,
+          "name": "Sami Othman",
+          "email": "admin1@gmail.com",
+          "password": "123456",
+          "role": "Manager RH"
+        },
+        {
+          "id": 102,
+          "name": "Leila Amrani",
+          "email": "admin2@gmail.com",
+          "password": "123456",
+          "role": "Manager RH"
+        }
+      ]
+    ]
+  }
+
+  

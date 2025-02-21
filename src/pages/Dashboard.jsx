@@ -1,71 +1,67 @@
-import { useState, useEffect } from "react";
-import AbsenceTable from "../components/AbsenceTable";
-import data from "../data.json";
-import Sidebar from "../components/sidebar";
+import { useEffect, useState } from 'react';
+import Sidebar from '../components/SideBar';
+import './dashboard.css';
+import axios from 'axios';
+import '../../public/demandes.json'
 
-const Dashboard = () => {
-  const [loggedInResponsable, setLoggedInResponsable] = useState(null);
+function Dashboard() {
 
-
-
+  const [demandes, setDemandes] = useState([])
   useEffect(() => {
-    const responsable = JSON.parse(localStorage.getItem("loggedIn"));
-    setLoggedInResponsable(responsable);
+
+    axios.get('../../public/demandes.json')
+    .then(response => setDemandes(response.data.demandes))
+    .catch(error => console.log('erreur', error));
   }, []);
-
-  const handleStatusChange = (employeeId, date, newStatus, heureSortie) => {
-    const updatedData = [...data.employes];
-    const employee = updatedData.find((e) => e.id === employeeId);
-    const statuts = employee.statuts.map((s) =>
-      s.date === date
-        ? {
-            ...s,
-            statut: newStatus,
-            heure_sortie: heureSortie || s.heure_sortie,
-            responsable: loggedInResponsable.id,
-          }
-        : s
-    );
-    employee.statuts = statuts;
-
-    // Save the updated data to localStorage
-    localStorage.setItem("data", JSON.stringify(updatedData));
-  };
-
+  console.log(demandes)
   return (
-    <div className="app-container">
-      <Sidebar/>
-      <div className="container mx-auto pl-10 p-4">
-        <h1 className="text-2xl font-bold mb-4">Tableau de Suivi des Absences</h1>
-        {loggedInResponsable && (
-          <AbsenceTable
-            employees={data.employes}
-            loggedInResponsable={loggedInResponsable}
-            handleStatusChange={handleStatusChange}
-          />
-        )}
-      </div>
+    <>
+          <Sidebar />
+          <div className="table-container">
+
+      <h1 className="table-title">Tableau des Absences</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Semaine 1</th>
+            <th>Semaine 2</th>
+            <th>Semaine 3</th>
+            <th>Semaine 4</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+              {demandes.map((demande) => (
+               <tr key={demande.id}>
+                  <td>{demande.employeeName}</td>
+                  <td style={{ backgroundColor: demande.weeks[0].status === "Refusé" ? "red" : "" }}>
+                    {demande.weeks[0].status}
+                  </td>
+                  <td style={{ backgroundColor: demande.weeks[1].status === "Refusé" ? "red" : "" }}>
+                    {demande.weeks[1].status}
+                  </td>
+                  <td style={{ backgroundColor: demande.weeks[2].status === "Refusé" ? "red" : "" }}>
+                    {demande.weeks[2].status}
+                  </td>
+                  <td style={{ backgroundColor: demande.weeks[3].status === "Refusé" ? "red" : "" }}>
+                    {demande.weeks[3].status}
+                  </td>
+                  <td>
+                    <button className='button'>Accepter</button>
+                    <button className='button'>Refuser</button>
+                    <button className='button'>Modifier</button>
+                  </td>
+
+            </tr>
+          ))}
+            
+        </tbody>
+      </table>
     </div>
+    </>
+    
   );
-};
+}
 
 export default Dashboard;
-
-
-
-
-// function Dashboard() {
-//     const logout = (e) => {
-//         e.preventDefault()
-//         localStorage.removeItem("loggedIn");
-//         window.location.href = "/login";
-//       };
-//   return (
-//     <div className="min-h-screen bg-gray-100 p-1">
-//         <Header />
-//         <AbsenceTable/>
-//     </div>
-//   )
-// }
-
-// export default Dashboard

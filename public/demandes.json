@@ -1,0 +1,66 @@
+{
+  "demandes": [
+    {
+      "id": 1,
+      "employeeId": 1,
+      "employeeName": "Alice Dupont",
+      "startDate": "2025-03-10",
+      "endDate": "2025-03-15",
+      "status": "En attente",
+      "managerId": 101,
+      "weeks": [
+        { "week": 1, "status": "En attente" },
+        { "week": 2, "status": "Approuvé" },
+        { "week": 3, "status": "Refusé" },
+        { "week": 4, "status": "Reporté" }
+      ]
+    },
+    {
+      "id": 2,
+      "employeeId": 2,
+      "employeeName": "Mohamed Ali",
+      "startDate": "2025-04-01",
+      "endDate": "2025-04-07",
+      "status": "Approuvé",
+      "managerId": 102,
+      "weeks": [
+        { "week": 1, "status": "Approuvé" },
+        { "week": 2, "status": "En attente" },
+        { "week": 3, "status": "Reporté" },
+        { "week": 4, "status": "Refusé" }
+      ]
+    },
+    {
+      "id": 3,
+      "employeeId": 3,
+      "employeeName": "Fatima Zahra",
+      "startDate": "2025-03-20",
+      "endDate": "2025-03-22",
+      "status": "Refusé",
+      "managerId": 101,
+      "weeks": [
+        { "week": 1, "status": "Refusé" },
+        { "week": 2, "status": "Approuvé" },
+        { "week": 3, "status": "En attente" },
+        { "week": 4, "status": "Reporté" }
+      ]
+    },
+    {
+      "id": 4,
+      "employeeId": 1,
+      "employeeName": "Alice Dupont",
+      "startDate": "2025-05-05",
+      "endDate": "2025-05-10",
+      "status": "Reporté",
+      "newStartDate": "2025-05-12",
+      "newEndDate": "2025-05-17",
+      "managerId": 101,
+      "weeks": [
+        { "week": 1, "status": "Reporté" },
+        { "week": 2, "status": "Refusé" },
+        { "week": 3, "status": "En attente" },
+        { "week": 4, "status": "Approuvé" }
+      ]
+    }
+  ]
+}
