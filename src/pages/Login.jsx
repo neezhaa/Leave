@@ -1,25 +1,26 @@
 import { useState } from "react";
-import data from '../data.json';
+import managers from '../managers.json';
+// import employes from '../../public/employes.json';
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState("sophierenault");
-  const [password, setPassword] = useState("mdp456");
+  const [email, setEmail] = useState("admin1@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault()
     setLoading(true)
-    const responsable = data.responsables.find(
+    const responsable = managers.managers.find(
       (responsable) =>
-        (responsable.email === emailOrUsername || responsable.username === emailOrUsername) &&
-        responsable.motdepasse === password
+        responsable.email === email &&
+        responsable.password === password
     );
 
     if (responsable) {
       setLoading(false)
-      localStorage.setItem("loggedIn", JSON.stringify(responsable));
+      localStorage.setItem("loggedIn", responsable.id);
       window.location.href = "/";
     } else {
       setError("Identifiants incorrects");
@@ -68,9 +69,9 @@ const Login = () => {
                     <div className='mb-[20px]'>
                         <input 
                             type="text" 
-                            value={emailOrUsername} 
+                            value={email} 
                             placeholder='Email *' 
-                            onChange={ e => setEmailOrUsername(e.target.value)}
+                            onChange={ e => setEmail(e.target.value)}
                             className='bg-transparent border-0 border-b border-gray-400 
                                 shadow-none text-[#758b9d] 
                                 text-base h-auto leading-[1.4285] outline-none 
@@ -88,23 +89,7 @@ const Login = () => {
                                 py-[10px] pb-[7px] relative w-full mb-5 
                                 focus:border-blue-500 focus:ring-0'
                         />
-                        <div className="flex items-center justify-between mb-[5px]">
-                            <div className="block my-[10px] relative">
-                                <p className="text-[#758b9d] text-[14px]">
-                                    <input id='remember' className='absolute h-[15px] left-0 top-[3px] mt-[1px] width-[15px]' type="checkbox"/>
-                                    <label htmlFor='remember' className='pl-[23px]'>Remember me</label>
-                                </p>
-                            </div>
-                            <div>
-                                <Link className='link-b border-b border-[#0099fa] text-[#1e385b] relative transition-all duration-500' to="/password_recovery">
-                                <span className="absolute left-[-28px] top-[5px] 
-                                    bg-[url('https://pocketoption.com/themes/2017-09/img/icon-refresh-blue.svg')] 
-                                    bg-center bg-no-repeat bg-contain 
-                                    h-[16px] w-[16px]">
-                                </span>
-                                Password recovery</Link>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div className="submit-btn-wrap">
                     <button 
