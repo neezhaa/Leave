@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import alertCircle from '../assets/alertCircle.svg';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("ahmed@example.com");
   const [password, setPassword] = useState("password123");
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login, loading, setLoading, error } = useAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true)
     login(email, password);
-    navigate("/dashboard");
   };
 
   return (
@@ -42,12 +42,15 @@ const LoginPage = () => {
                             className='bg-transparent border-0 border-b border-gray-400 
                                 shadow-none text-[#758b9d] 
                                 text-base h-auto leading-[1.4285] outline-none 
-                                py-[10px] pb-[7px] relative w-full mb-5 
+                                py-[10px] pb-[7px] relative w-full mb-1 
                                 focus:border-blue-500 focus:ring-0'
                         />
                         
                     </div>
-                    <div className="submit-btn-wrap">
+
+                    {error && <p className="text-red-500 mb-4 font-bold flex items-center justify-center gap-1"><span><img src={alertCircle}/></span>{error}</p>}
+
+                    <div className="submit-btn-wrap place-items-center">
                     <button 
                         className="flex items-center justify-center bg-gradient-to-r from-[#0099fa] to-[#002ed9] 
                                     bg-[length:115%_auto] border-0 rounded-[10px] 
@@ -61,18 +64,17 @@ const LoginPage = () => {
                         
                         Sign In
 
-                        {/* {loading && (
+                        {loading && (
                             <div className="flex items-center ml-2">
                             <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
                             <span className="w-2 h-2 bg-white rounded-full animate-pulse mx-1" style={{ animationDelay: "0.2s" }}></span>
                             <span className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></span>
                             </div>
-                        )} */}
+                        )}
 
                         </button>
 
                     </div>
-                    {/* {error && <p className="text-red-500 mb-4">{error}</p>} */}
 
                 </form>
             </div>
