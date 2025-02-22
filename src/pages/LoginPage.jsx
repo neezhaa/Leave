@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import alertCircle from '../assets/alertCircle.svg';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("ahmed@example.com");
   const [password, setPassword] = useState("password123");
   const { login, loading, setLoading, error } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true)
     login(email, password);
+    navigate("/dashboard");
   };
 
   return (

@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
     );
     if (foundUser) {
       setUser({ ...foundUser });
-      window.location.href = '/dashboard';
     } else {
       setError("Email ou mot de passe incorrect.");
       setLoading(false)
